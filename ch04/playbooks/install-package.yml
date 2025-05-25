@@ -7,4 +7,5 @@
     - name: install nginx
       apt: name=nginx
       register: result
+
     - debug: var=result

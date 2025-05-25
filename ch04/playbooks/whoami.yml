@@ -6,5 +6,10 @@
     - name: capture output of id command
       command: id -un
       register: login
-    - debug: var=login
-    - debug: msg="Logged in as user {{ login.stdout }}"
+      # ignore_errors: True
+
+    - debug:
+        var=login
+
+    - debug:
+        msg="Logged in as user {{ login.stdout }}"
