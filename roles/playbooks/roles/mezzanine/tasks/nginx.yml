@@ -1,7 +1,10 @@
 - name: set the nginx config file
-  template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/mezzanine.conf
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/mezzanine.conf
   notify: restart nginx
   become: True
+
 - name: enable the nginx config file
   file:
     src: /etc/nginx/sites-available/mezzanine.conf
@@ -9,10 +12,14 @@
     state: link
   notify: restart nginx
   become: True
+
 - name: remove the default nginx config file
-  file: path=/etc/nginx/sites-enabled/default state=absent
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
   notify: restart nginx
   become: True
+
 - name: create ssl certificates
   command: >
     openssl req -new -x509 -nodes -out {{ mezzanine_proj_name }}.crt
